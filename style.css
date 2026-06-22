@@ -35,3 +35,9 @@ button {
     font-size: 18px;
     cursor: pointer;
 }
+
+button {
+	padding: 12px 10px;
+    font-size: 25px;
+    cursor: pointer;
+}
