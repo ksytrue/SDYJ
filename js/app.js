@@ -1,4 +1,29 @@
 (function () {
+    // LaTeX rendering via KaTeX
+    function renderLatex(container) {
+        if (typeof katex === 'undefined') return;
+
+        // Block math: $$...$$
+        container.innerHTML = container.innerHTML.replace(
+            /\$\$([\s\S]+?)\$\$/g,
+            function (match, tex) {
+                try {
+                    return katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false });
+                } catch (e) { return match; }
+            }
+        );
+
+        // Inline math: $...$  (not preceded/followed by $)
+        container.innerHTML = container.innerHTML.replace(
+            /(?<!\$)\$(?!\$)([^\$\n]+?)\$(?!\$)/g,
+            function (match, tex) {
+                try {
+                    return katex.renderToString(tex.trim(), { displayMode: false, throwOnError: false });
+                } catch (e) { return match; }
+            }
+        );
+    }
+
     // Tab navigation
     const tabLinks = document.querySelectorAll('[data-tab]');
     const tabSections = document.querySelectorAll('.tab-content');
@@ -99,6 +124,7 @@
         modalCreator.textContent = video.creator;
         modalIndex.textContent = '#' + video.id;
         modalDescription.textContent = video.description;
+        renderLatex(modalDescription);
 
         if (video.timestamps && video.timestamps.length > 0) {
             modalTimestamps.innerHTML = '<h3>영상 인덱스</h3><ul class="timestamp-list">' +
@@ -205,6 +231,7 @@
                 var html = marked.parse(md);
                 articleContent.innerHTML =
                     '<div class="article-meta">' + mag.author + ' &middot; ' + mag.date + '</div>' + html;
+                renderLatex(articleContent);
                 magazineList.style.display = 'none';
                 articleViewer.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
