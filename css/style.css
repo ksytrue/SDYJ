@@ -765,6 +765,12 @@ a {
     font-weight: 600;
 }
 
+/* ===== Notice Viewer ===== */
+.notice-viewer {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 /* ===== Footer ===== */
 .footer {
     background: #1e293b;

@@ -48,6 +48,8 @@
         if (articleViewer) articleViewer.classList.remove('active');
         if (magazineList) magazineList.style.display = '';
 
+        if (tabName === 'notice') loadNotice();
+
         navLinksContainer.classList.remove('open');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -251,4 +253,26 @@
     }
 
     renderMagazines();
+
+    // ===== Notice (README.md) =====
+    var noticeContent = document.getElementById('notice-content');
+    var noticeLoaded = false;
+
+    function loadNotice() {
+        if (!noticeContent || noticeLoaded) return;
+
+        fetch('README.md')
+            .then(function (res) {
+                if (!res.ok) throw new Error('Failed to load');
+                return res.text();
+            })
+            .then(function (md) {
+                noticeContent.innerHTML = marked.parse(md);
+                renderLatex(noticeContent);
+                noticeLoaded = true;
+            })
+            .catch(function () {
+                noticeContent.innerHTML = '<p>공지사항을 불러오는 데 실패했습니다.</p>';
+            });
+    }
 })();
