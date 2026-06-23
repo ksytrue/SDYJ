@@ -70,11 +70,19 @@ a {
     cursor: pointer;
 }
 
-.logo-img {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    object-fit: cover;
+.logo-diamond {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    transform: rotate(45deg);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.logo-diamond-sm {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #60a5fa 0%, var(--primary) 100%);
 }
 
 .logo-text {
@@ -139,9 +147,7 @@ a {
 .hero {
     position: relative;
     height: 480px;
-    background-image: url('../images/background.jpg');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 50%, #1e293b 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,7 +157,9 @@ a {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(37,99,235,0.85) 0%, rgba(30,41,59,0.8) 100%);
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(96,165,250,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(37,99,235,0.2) 0%, transparent 40%);
 }
 
 .hero-content {
@@ -160,6 +168,17 @@ a {
     text-align: center;
     color: white;
     padding: 0 24px;
+}
+
+.hero-diamond {
+    width: 56px;
+    height: 56px;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.4);
+    transform: rotate(45deg);
+    border-radius: 8px;
+    margin: 0 auto 24px;
+    backdrop-filter: blur(4px);
 }
 
 .hero-content h1 {
@@ -261,8 +280,10 @@ a {
 /* ===== Cards ===== */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .card {
@@ -768,13 +789,6 @@ a {
     gap: 10px;
     font-weight: 600;
     color: white;
-}
-
-.footer-logo-img {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    object-fit: cover;
 }
 
 .footer p {
